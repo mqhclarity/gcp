@@ -1,6 +1,13 @@
 # Learn Terraform - Provision a GKE Cluster
 
-This repo is a companion repo to the [Provision a GKE Cluster tutorial](https://developer.hashicorp.com/terraform/tutorials/kubernetes/gke), containing Terraform configuration files to provision an GKE cluster on GCP.
+This is me trying to make a Harness.io . [Harness.io](https://harness.io) 
 
-This sample repo also creates a VPC and subnet for the GKE cluster. This is not
-required but highly recommended to keep your GKE cluster isolated.
+First, I create a kubernetes cluster with GKE using terraform apply.
+
+```
+terraform init
+terraform apply
+``` 
+
+The cluster is made in a free tier google account. It's kinda small. Potentially too small for the harness agent to come up. 
+
