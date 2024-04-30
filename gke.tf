@@ -12,19 +12,23 @@ variable "gke_password" {
 }
 
 variable "gke_num_nodes" {
-  default     = 2
+  default     = 2 
   description = "number of gke nodes"
+}
+
+variable "zone" {
+  description = "zone"
 }
 
 # GKE cluster
 data "google_container_engine_versions" "gke_version" {
-  location = var.region
+  location = var.zone
   version_prefix = "1.27."
 }
 
 resource "google_container_cluster" "primary" {
   name     = "${var.project_id}-gke"
-  location = var.region
+  location = var.zone
 
   # We can't create a cluster with no node pool defined, but we want to only use
   # separately managed node pools. So we create the smallest possible default
@@ -39,7 +43,7 @@ resource "google_container_cluster" "primary" {
 # Separately Managed Node Pool
 resource "google_container_node_pool" "primary_nodes" {
   name       = google_container_cluster.primary.name
-  location   = var.region
+  location   = var.zone
   cluster    = google_container_cluster.primary.name
   
   version = data.google_container_engine_versions.gke_version.release_channel_latest_version["STABLE"]
